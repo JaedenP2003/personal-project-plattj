@@ -4,15 +4,17 @@
   "description": "",
   "type": "module",
   "scripts": {
-  "dev": "kill-port 3000 && nodemon --legacy-watch --watch . --ext js,ejs,json --env-file=.env server.js",
-  "start": "node server.js",
-  "kill": "kill-port 3000"
+    "dev": "kill-port 3000 && nodemon --legacy-watch --watch . --ext js,ejs,json --env-file=.env server.js",
+    "start": "node server.js",
+    "kill": "kill-port 3000"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
-    "pg": "^8.21.0"
+    "kill-port": "^2.0.1",
+    "pg": "^8.21.0",
+    "ws": "^8.21.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
