@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'HyliaSerifBeta';
+    src: url(fonts/HyliaSerifBeta-Regular.otf);
+}
+@font-face {
+    font-family: 'WildBreathOfZelda';
+    src: url(fonts/The-wild-breath-of-zelda.otf);
+}
+
+html, body {
+    background-color: lightgreen;
+    font-family: 'HyliaSerifBeta', serif;
+    margin: 0 auto;
+    max-width: 1200px;
+    justify-content: center;
+    text-align: center;
+}
