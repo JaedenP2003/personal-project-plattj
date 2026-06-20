@@ -1,14 +1,51 @@
 <%- include('partials/header') %>
 
 <main>
-    <h1>Welcome to the Hyrule Quest Board</h1>
     <div class="hero">
-        <img src="/images/home/25th-ann.webp" alt="Hyrule Quest Board" class="hero-image">
-        <div class="hero-text">
+        <section id="hero-box">
+            <img src="/images/home/hyrulemap.webp" alt="Hyrule Quest Board" class="hero-image">
+        </section>
+        <section id="hero-msg">
+            <h1>Welcome to the Hyrule Quest Board</h1>
             <h2>"Adventure Awaits in Hyrule"</h2>
             <p>Embark on a journey through the land of Hyrule and take on exciting quests!</p>
-            <a href="/quests" class="button">Explore Quests</a>
-        </div>
+            <a href="/quests" class="btn">Explore Quests</a>
+        </section>
+    </div>
+    <div id="quests">
+        <h2>Featured Quests</h2>
+        <section class="quest-grid">
+            <article class="quest-card">
+                <h3>⚔️ Monster Hunt</h3>
+                <p><strong>Difficulty:</strong> Hard</p>
+                <p>
+                    A Hinox has been terrorizing travelers near West Necluda.
+                    Defeat the beast and restore safety to the roads.
+                </p>
+                <p><strong>Reward:</strong> 💎 300 Rupees</p>
+                <a href="#" class="btn">View Quest</a>
+            </article>
+            <article class="quest-card">
+                <h3>📦 Delivery Quest</h3>
+                <p><strong>Difficulty:</strong> Easy</p>
+                <p>
+                    A healer in Kakariko Village urgently needs medicine
+                    delivered before nightfall. Time is of the essence.
+                </p>
+                <p><strong>Reward:</strong> 💎 75 Rupees</p>
+                <a href="#" class="btn">View Quest</a>
+            </article>
+            <article class="quest-card">
+                <h3>🏛️ Shrine Investigation</h3>
+                <p><strong>Difficulty:</strong> Medium</p>
+                <p>
+                    Strange lights have been seen near an ancient shrine in
+                    Hebra. Investigate the disturbance and report your findings.
+                </p>
+                <p><strong>Reward:</strong> 💎 150 Rupees</p>
+                <a href="#" class="btn">View Quest</a>
+            </article>
+        </section>
     </div>
 </main>
 
