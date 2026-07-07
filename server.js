@@ -1,6 +1,10 @@
 import express from 'express';
+import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { caCert } from './src/models/db.js';
+import flash from './src/middleware/flash.js';
 import routes from './src/controllers/routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -10,12 +14,38 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+const pgSession = connectPgSimple(session);
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
         // Allow Express to receive and process POST data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({
+    store: new pgSession({
+        conObject: {
+            connectionString: process.env.DB_URL,
+            ssl: {
+                ca: caCert,
+                rejectUnauthorized: true,
+                checkServerIdentity: () => undefined,
+            },
+        },
+        tableName: 'session',
+        createTableIfMissing: true,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: true },
+}));
+app.use((req, res, next) => {
+    res.locals.loggedin = Boolean(req.session.account);
+    res.locals.accountData = req.session.account || null;
+    next();
+});
+app.use(flash);
 app.use('/', routes);
 
 if (NODE_ENV.includes('dev')) {

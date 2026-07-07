@@ -17,18 +17,26 @@
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
 
-                <!-- Only visible when logged in
-                
+                <% if (locals.loggedin) { %>
                     <li><a href="/myquests">My Quests</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
-                
+                <% } else { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                <% } %>
 
-                Only visible when NOT logged in -->
-                
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
-                
             </ul>
         </nav>
     </header>
+
+    <% const flashMessages = locals.flash ? flash() : null; %>
+    <% if (flashMessages && Object.values(flashMessages).some(function(msgs) { return msgs.length; })) { %>
+        <div class="flash-messages">
+            <% Object.keys(flashMessages).forEach(function(type) { %>
+                <% flashMessages[type].forEach(function(message) { %>
+                    <div class="flash <%= type %>"><%= message %></div>
+                <% }) %>
+            <% }) %>
+        </div>
+    <% } %>
