@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+<main>
+    <div id="dashboard-page">
+        <h1 class="section-title">Dashboard</h1>
+        <div class="divider"></div>
+
+        <% if (role === 'Hero') { %>
+            <p class="dashboard-intro">Welcome back, <%= accountData.first_name %>. Here's where your quests stand.</p>
+
+            <% if (!heroStats.length) { %>
+                <p class="empty-state">You haven't accepted any quests yet. <a href="/quests">Browse available quests</a>.</p>
+            <% } else { %>
+                <div class="stat-grid">
+                    <% heroStats.forEach(function(stat) { %>
+                        <div class="stat-card">
+                            <span class="stat-count"><%= stat.count %></span>
+                            <span class="stat-label"><%= stat.status %></span>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+
+            <a href="/myquests" class="btn">View My Quests</a>
+
+        <% } else if (role === 'Guild Officer') { %>
+            <p class="dashboard-intro">Welcome back, <%= accountData.first_name %>. Quest submissions awaiting your review:</p>
+
+            <% if (!pendingSubmissions.length) { %>
+                <p class="empty-state">No submissions are waiting for review right now.</p>
+            <% } else { %>
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Quest</th>
+                            <th>Hero</th>
+                            <th>Submitted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pendingSubmissions.forEach(function(submission) { %>
+                            <tr>
+                                <td><%= submission.title %></td>
+                                <td><%= submission.hero_username %></td>
+                                <td><%= submission.submitted_at.toLocaleDateString() %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+
+        <% } else { %>
+            <p class="dashboard-intro">Welcome back, <%= accountData.first_name %>. Here's how the Quest Board is doing:</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <span class="stat-count"><%= siteStats.total_accounts %></span>
+                    <span class="stat-label">Accounts</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-count"><%= siteStats.active_quests %></span>
+                    <span class="stat-label">Active Quests</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-count"><%= siteStats.total_assignments %></span>
+                    <span class="stat-label">Quests Accepted</span>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

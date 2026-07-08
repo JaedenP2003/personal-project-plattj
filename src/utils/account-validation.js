@@ -1,6 +1,14 @@
+// express-validator rule sets + the middleware that checks them, for the
+// registration and login forms. Each `checkXData` middleware runs after its
+// rules; if anything failed, it flashes every error message and redirects
+// back to the form instead of calling the controller.
+
 import { body, validationResult } from 'express-validator';
 import { checkExistingEmail, checkExistingUsername } from '../models/account-model.js';
 
+// Validation rules for POST /register. Each body(...) chain validates one
+// field; .custom() rules can be async, which is how the uniqueness checks
+// query the database mid-validation.
 function registrationRules() {
     return [
         body('first_name').trim().notEmpty().withMessage('First name is required.'),
@@ -27,6 +35,8 @@ function registrationRules() {
                 return true;
             }),
         body('password')
+            // isStrongPassword checks length + character variety in one
+            // call instead of chaining several .matches(/regex/) rules.
             .isStrongPassword({
                 minLength: 8,
                 minLowercase: 1,
@@ -44,6 +54,10 @@ function registrationRules() {
     ];
 }
 
+// Runs after registrationRules(). validationResult(req) collects whatever
+// the rules above found; if any failed, every message gets queued as a
+// flash and the user is bounced back to the form to try again. Only calls
+// next() (i.e. lets registerAccountHandler run) when everything passed.
 function checkRegData(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -53,6 +67,10 @@ function checkRegData(req, res, next) {
     next();
 }
 
+// Deliberately lighter than registrationRules(): login only needs to
+// confirm the fields are well-formed, not whether they're actually
+// correct — that check happens against the hashed password in the
+// controller, where a wrong guess gets the same generic error either way.
 function loginRules() {
     return [
         body('email').trim().isEmail().withMessage('A valid email is required.').normalizeEmail(),

@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hyrule Quest Board</title>
     <link rel="stylesheet" href="/css/main.css">
+    <%# Each controller can pass a pageStyle (e.g. 'home', 'login') to load
+        that page's own stylesheet on top of the shared main.css. Pages that
+        don't pass one just get main.css. %>
+    <% if (locals.pageStyle) { %>
+        <link rel="stylesheet" href="/css/<%= pageStyle %>.css">
+    <% } %>
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -17,6 +23,10 @@
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
 
+                <%# loggedin/accountData are set on every request by
+                    server.js from req.session.account, so any page can
+                    branch on login state without its controller passing
+                    anything extra in. %>
                 <% if (locals.loggedin) { %>
                     <li><a href="/myquests">My Quests</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
@@ -30,6 +40,10 @@
         </nav>
     </header>
 
+    <%# flash() (from src/middleware/flash.js) returns every queued message
+        AND clears it in the same call, so this only ever needs to run once,
+        here in the header, for it to show up on whichever page the user
+        landed on after a redirect. %>
     <% const flashMessages = locals.flash ? flash() : null; %>
     <% if (flashMessages && Object.values(flashMessages).some(function(msgs) { return msgs.length; })) { %>
         <div class="flash-messages">

@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    text-shadow: black 2px 2px 2px;
+    max-height: 600px;
+    overflow: hidden;
+
+    #hero-box {
+        grid-column: 1 / 4;
+        grid-row: 1 / 2;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    #hero-msg {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #cfc926;
+        text-align: center;
+        grid-column: 1 / 4;
+        grid-row: 1 / 2;
+        font-size: 1.25em;
+    }
+}
+
+.hero-image {
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+}
+
+/* ==========================================================================
+   Featured Quests
+   ========================================================================== */
+
+#quests {
+    padding: 2rem 2rem;
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #332411;
+        text-shadow: 1px 1px #fff2bf;
+    }
+
+    .divider {
+        width: 300px;
+        height: 2px;
+        background: #ad8d4f;
+        margin: auto;
+        margin-bottom: 3rem;
+        position: relative;
+
+        &::after {
+            content: "✦";
+            position: absolute;
+            left: 50%;
+            top: -10px;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #ad8d4f;
+        }
+    }
+
+    .quest-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .quest-card {
+        background: #f5ecd2;
+        border: 2px solid #c7ab6d;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+
+        h3 {
+            margin-top: 0;
+            color: #4d2e12;
+        }
+
+        p {
+            line-height: 1.5;
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            transition: .2s;
+        }
+    }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media screen and (max-width: 1024px) {
+    .hero {
+        max-height: 500px;
+
+        #hero-msg {
+            font-size: 1rem;
+            padding: 1rem;
+        }
+
+        .btn {
+            padding: .8rem 1.5rem;
+            font-size: 1rem;
+        }
+    }
+
+    #quests {
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .quest-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero {
+        max-height: none;
+
+        #hero-msg {
+            font-size: .85rem;
+            padding: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        .btn {
+            font-size: 1rem;
+            padding: .75rem 1.25rem;
+        }
+    }
+
+    #quests {
+        padding: 2rem 1rem;
+
+        .divider {
+            width: 200px;
+        }
+
+        .quest-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .quest-card {
+            padding: 1.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero .btn {
+        width: 80%;
+        display: block;
+        margin: auto;
+        padding: .75rem;
+        font-size: .9rem;
+    }
+
+    #quests {
+        .section-title {
+            font-size: 1.75rem;
+        }
+
+        .divider {
+            width: 150px;
+        }
+
+        .quest-card {
+            padding: 1rem;
+
+            p {
+                font-size: .9rem;
+            }
+        }
+    }
+}

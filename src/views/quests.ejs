@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+<main>
+    <div id="quests-page">
+        <h1 class="section-title">Available Quests</h1>
+        <div class="divider"></div>
+
+        <% if (!quests.length) { %>
+            <p class="empty-state">No quests are posted right now. Check back soon, traveler.</p>
+        <% } else { %>
+            <section class="quest-grid">
+                <% quests.forEach(function(quest) { %>
+                    <article class="quest-card">
+                        <h3><%= quest.title %></h3>
+                        <p><strong>Category:</strong> <%= quest.category %></p>
+                        <p><strong>Difficulty:</strong> <%= quest.difficulty %></p>
+                        <p><%= quest.description %></p>
+                        <p><strong>Reward:</strong> <%= quest.reward %></p>
+
+                        <% if (quest.my_status) { %>
+                            <span class="quest-status">Already <%= quest.my_status %></span>
+                        <% } else if (locals.loggedin && accountData.role === 'Hero') { %>
+                            <form action="/quests/<%= quest.quest_id %>/accept" method="post">
+                                <button type="submit" class="btn">Accept Quest</button>
+                            </form>
+                        <% } else if (!locals.loggedin) { %>
+                            <a href="/login" class="btn">Login to Accept</a>
+                        <% } %>
+                    </article>
+                <% }) %>
+            </section>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

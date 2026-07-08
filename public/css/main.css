@@ -1,11 +1,20 @@
+/* ==========================================================================
+   Fonts
+   ========================================================================== */
+
 @font-face {
     font-family: 'HyliaSerifBeta';
     src: url(fonts/HyliaSerifBeta-Regular.otf);
 }
+
 @font-face {
     font-family: 'WildBreathOfZelda';
     src: url(fonts/The-wild-breath-of-zelda.otf);
 }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
 
 html, body {
     background: #2b1f14;
@@ -14,28 +23,40 @@ html, body {
     padding: 0;
     justify-content: center;
     text-align: center;
-    color:#2b2417;
+    color: #2b2417;
+}
 
-    header {
+main {
+    max-width: 1600px;
+    margin: 0 auto;
+    background: #e9d9b8;
+    border: 8px solid #5c4126;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .45);
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+
+header {
     background: linear-gradient(#183524, #0f2419);
     border-bottom: 4px solid #8f6b2e;
-    }
 
     .logo {
         width: 100px;
         height: auto;
     }
+}
 
-    nav {
-        max-width: 1600px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 1rem;
-    }
+nav {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
 
-    nav ul {
+    ul {
         display: flex;
         align-items: center;
         gap: 2rem;
@@ -44,178 +65,42 @@ html, body {
         margin: 0;
     }
 
-    nav a {
+    a {
         color: #e8c66a;
         text-decoration: none;
         font-weight: bold;
         text-transform: uppercase;
-    }
 
-    nav a:hover {
-        color: white;
-    }
-
-    .hero-image {
-        width: 100%;
-        box-shadow: 0 10px 30px rgba(0,0,0,.4);
+        &:hover {
+            color: white;
+        }
     }
 }
 
-main {
-    max-width: 1600px;
-    margin: 0 auto;
-    background:#e9d9b8;
-    border:8px solid #5c4126;
-    box-shadow:
-        0 0 40px rgba(0,0,0,.45);
-}
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
 
-.hero {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    text-shadow: black 2px 2px 2px;
-    max-height: 600px;
-    overflow: hidden;
+.btn {
+    display: inline-block;
+    background: linear-gradient(#326134, #204424);
+    color: #f7ebc7;
+    padding: 1rem 2rem;
+    border: 2px solid #a88742;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
 
-    #hero-box {
-        grid-column: 1 / 4;
-        grid-row: 1 / 2;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    #hero-msg {
-        background-color: rgba(0, 0, 0, 0.4);
-        color: #cfc926;
-        text-align: center;
-        grid-column: 1 / 4;
-        grid-row: 1 / 2;
-        font-size: 1.25em;
-    }
-
-    .btn {
-        display: inline-block;
-        background: linear-gradient(#326134, #204424);
-        color: #f7ebc7;
-        padding: 1rem 2rem;
-        border: 2px solid #a88742;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .btn:hover {
+    &:hover {
         background: linear-gradient(#3d7340, #28552b);
         transform: translateY(-2px);
     }
 }
 
-#quests {
-    padding: 2rem 2rem;
-
-    .section-title {
-        font-size: 2.5rem;
-        color:#332411;
-        text-shadow: 1px 1px #fff2bf;
-    }
-
-    .divider {
-        width:300px;
-        height:2px;
-        background:#ad8d4f;
-        margin:auto;
-        margin-bottom:3rem;
-        position:relative;
-    }
-
-    .divider::after{
-        content:"✦";
-        position:absolute;
-        left:50%;
-        top:-10px;
-        transform:translateX(-50%);
-        font-size:1.5rem;
-        color:#ad8d4f;
-    }
-
-    .quest-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-    }
-
-    .quest-card {
-        background: #f5ecd2;
-        border: 2px solid #c7ab6d;
-        border-radius: 8px;
-        padding: 2rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,.2);
-    }
-
-    .quest-card h3 {
-        margin-top: 0;
-        color: #4d2e12;
-    }
-
-    .quest-card p {
-        line-height: 1.5;
-    }
-
-    .quest-card:hover {
-        transform: translateY(-5px);
-        transition: .2s;
-    }
-}
-
-.form-container {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: left;
-}
-
-.form-container h1 {
-    text-align: center;
-    color: #4d2e12;
-}
-
-.form-container form {
-    display: flex;
-    flex-direction: column;
-    gap: .35rem;
-}
-
-.form-container label {
-    font-weight: bold;
-    margin-top: .75rem;
-}
-
-.form-container input {
-    padding: .6rem;
-    border: 2px solid #c7ab6d;
-    border-radius: 6px;
-    background: #f5ecd2;
-    font-family: inherit;
-}
-
-.form-hint {
-    margin: 0;
-    font-size: .85rem;
-    color: #5c4126;
-}
-
-.form-container .btn {
-    margin-top: 1.5rem;
-    align-self: center;
-    background: linear-gradient(#326134, #204424);
-    color: #f7ebc7;
-    border: 2px solid #a88742;
-}
-
-.form-container p {
-    text-align: center;
-}
+/* ==========================================================================
+   Flash Messages
+   ========================================================================== */
 
 .flash-messages {
     max-width: 1600px;
@@ -231,241 +116,145 @@ main {
     padding: .85rem 1.5rem;
     text-align: left;
     font-weight: bold;
+
+    &.error {
+        background: #f5d6d6;
+        border: 2px solid #a83232;
+        color: #7a1f1f;
+    }
+
+    &.success {
+        background: #dcf0dc;
+        border: 2px solid #326134;
+        color: #204424;
+    }
+
+    &.warning {
+        background: #f7ecc6;
+        border: 2px solid #a8842e;
+        color: #6b4f16;
+    }
+
+    &.info {
+        background: #d9e8f0;
+        border: 2px solid #2e6d8a;
+        color: #16455a;
+    }
 }
 
-.flash.error {
-    background: #f5d6d6;
-    border: 2px solid #a83232;
-    color: #7a1f1f;
-}
-
-.flash.success {
-    background: #dcf0dc;
-    border: 2px solid #326134;
-    color: #204424;
-}
-
-.flash.warning {
-    background: #f7ecc6;
-    border: 2px solid #a8842e;
-    color: #6b4f16;
-}
-
-.flash.info {
-    background: #d9e8f0;
-    border: 2px solid #2e6d8a;
-    color: #16455a;
-}
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 
 footer {
     background: #183524;
     color: #e8c66a;
     justify-items: center;
     padding: 2rem;
+
+    ul {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    a {
+        color: #e8c66a;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        &:hover {
+            color: white;
+        }
+    }
 }
 
-footer ul {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-footer a {
-    color: #e8c66a;
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-footer a:hover {
-    color: white;
-}
-
-
-
-/* ======================================
-   TABLETS
-====================================== */
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
 
 @media screen and (max-width: 1024px) {
-
     nav {
         padding: 1rem;
+
+        ul {
+            gap: 1.5rem;
+        }
+
+        a {
+            font-size: 0.95rem;
+        }
     }
 
-    nav ul {
-        gap: 1.5rem;
-    }
-
-    nav a {
-        font-size: 0.95rem;
-    }
-
-    .logo {
+    header .logo {
         width: 85px;
     }
+}
 
-    .hero {
-        max-height: 500px;
+@media screen and (max-width: 768px) {
+    html, body {
+        max-width: 100%;
     }
 
-    .hero #hero-msg {
-        font-size: 1rem;
+    nav {
+        flex-direction: column;
+        gap: 1rem;
         padding: 1rem;
+
+        ul {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        a {
+            font-size: .9rem;
+        }
     }
 
-    .hero .btn {
-        padding: .8rem 1.5rem;
-        font-size: 1rem;
+    header .logo {
+        width: 70px;
     }
 
-    #quests .section-title {
-        font-size: 2rem;
-    }
+    footer {
+        padding: 1.5rem;
 
-    #quests .quest-grid {
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-}
-
-@media screen and (max-width:768px){
-
-    html,body{
-        max-width:100%;
-    }
-
-    nav{
-        flex-direction:column;
-        gap:1rem;
-        padding:1rem;
-    }
-
-    nav ul{
-        flex-wrap:wrap;
-        justify-content:center;
-        gap:1rem;
-    }
-
-    nav a{
-        font-size:.9rem;
-    }
-
-    .logo{
-        width:70px;
-    }
-
-    .hero{
-        max-height:none;
-    }
-
-    .hero #hero-msg{
-        font-size:.85rem;
-        padding:1rem;
-    }
-
-    .hero h1{
-        font-size:2.5rem;
-    }
-
-    .hero h2{
-        font-size:1.75rem;
-    }
-
-    .hero p{
-        font-size:1rem;
-    }
-
-    .hero .btn{
-        font-size:1rem;
-        padding:.75rem 1.25rem;
-    }
-
-    #quests{
-        padding:2rem 1rem;
-    }
-
-    #quests .divider{
-        width:200px;
-    }
-
-    #quests .quest-grid{
-        grid-template-columns:1fr;
-    }
-
-    #quests .quest-card{
-        padding:1.5rem;
-    }
-
-    footer{
-        padding:1.5rem;
-    }
-
-    footer ul{
-        flex-wrap:wrap;
-        justify-content:center;
-        gap:1rem;
+        ul {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
     }
 }
 
-@media screen and (max-width:480px){
+@media screen and (max-width: 480px) {
+    nav {
+        padding: .5rem;
 
-    nav{
-        padding:.5rem;
+        ul {
+            flex-direction: column;
+            align-items: center;
+            gap: .75rem;
+        }
+
+        a {
+            font-size: .8rem;
+        }
     }
 
-    nav ul{
-        flex-direction:column;
-        align-items:center;
-        gap:.75rem;
+    header .logo {
+        width: 60px;
     }
 
-    nav a{
-        font-size:.8rem;
-    }
+    footer {
+        font-size: .9rem;
 
-    .logo{
-        width:60px;
-    }
-
-    .hero #hero-msg{
-        font-size:.7rem;
-        padding:.75rem;
-    }
-
-    .hero .btn{
-        width:80%;
-        display:block;
-        margin:auto;
-        padding:.75rem;
-        font-size:.9rem;
-    }
-
-    #quests .section-title{
-        font-size:1.75rem;
-    }
-
-    #quests .divider{
-        width:150px;
-    }
-
-    #quests .quest-card{
-        padding:1rem;
-    }
-
-    #quests .quest-card p{
-        font-size:.9rem;
-    }
-
-    footer ul{
-        flex-direction:column;
-        gap:.5rem;
-    }
-
-    footer{
-        font-size:.9rem;
+        ul {
+            flex-direction: column;
+            gap: .5rem;
+        }
     }
 }

@@ -1,5 +1,11 @@
 <%- include('../partials/header') %>
 
+<%# This form only has field names/types/required attrs — the real
+    validation (uniqueness checks, password strength, etc.) runs server-side
+    in src/utils/account-validation.js before account-controller.js ever
+    sees this data. On a validation failure, the user is redirected back
+    here with the error shown as a flash message up in the header, not
+    rendered inline on this page. %>
 <main>
     <div class="form-container">
         <h1>Join the Guild</h1>

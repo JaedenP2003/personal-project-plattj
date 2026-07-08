@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<main>
+    <div id="myquests-page">
+        <h1 class="section-title">My Quests</h1>
+        <div class="divider"></div>
+
+        <% if (!assignments.length) { %>
+            <p class="empty-state">You haven't accepted any quests yet. <a href="/quests">Browse available quests</a>.</p>
+        <% } else { %>
+            <section class="quest-grid">
+                <% assignments.forEach(function(assignment) { %>
+                    <article class="quest-card">
+                        <h3><%= assignment.title %></h3>
+                        <p><strong>Category:</strong> <%= assignment.category %></p>
+                        <p><strong>Difficulty:</strong> <%= assignment.difficulty %></p>
+                        <p><%= assignment.description %></p>
+                        <p><strong>Reward:</strong> <%= assignment.reward %></p>
+                        <span class="quest-status"><%= assignment.status %></span>
+                    </article>
+                <% }) %>
+            </section>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

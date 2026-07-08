@@ -1,0 +1,50 @@
+/* ==========================================================================
+   500 Page
+   ========================================================================== */
+
+.error-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+
+    .error-image {
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        font-size: 5rem;
+        margin: 0;
+        color: #4d2e12;
+        text-shadow: 1px 1px #fff2bf;
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #5c4126;
+    }
+
+    p {
+        line-height: 1.5;
+    }
+
+    .btn {
+        margin-top: 1.5rem;
+    }
+}
+
+.error-stack {
+    text-align: left;
+    background: #2b1f14;
+    color: #e8c66a;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    overflow-x: auto;
+    font-size: .85rem;
+}

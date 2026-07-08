@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<%# Rendered by the global error handler in server.js for any thrown or
+    rejected error. `error` is a generic message in production, but the
+    real error text in dev; `stack` is only ever populated in dev — see
+    server.js for the NODE_ENV check that decides both. %>
+<main>
+    <div class="error-page">
+        <img src="/images/errors/500.svg" alt="A shattered Triforce" class="error-image">
+        <h1>500</h1>
+        <h2>The Triforce Has Shattered</h2>
+        <p><%= error %></p>
+
+        <% if (stack) { %>
+            <pre class="error-stack"><%= stack %></pre>
+        <% } %>
+
+        <a href="/" class="btn">Return to the Quest Board</a>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

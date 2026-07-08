@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Quests Page
+   ========================================================================== */
+
+#quests-page {
+    padding: 2rem;
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #332411;
+        text-shadow: 1px 1px #fff2bf;
+    }
+
+    .divider {
+        width: 300px;
+        height: 2px;
+        background: #ad8d4f;
+        margin: auto;
+        margin-bottom: 3rem;
+        position: relative;
+
+        &::after {
+            content: "✦";
+            position: absolute;
+            left: 50%;
+            top: -10px;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #ad8d4f;
+        }
+    }
+
+    .empty-state {
+        color: #5c4126;
+        font-size: 1.1rem;
+    }
+
+    .quest-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .quest-card {
+        background: #f5ecd2;
+        border: 2px solid #c7ab6d;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+        text-align: left;
+
+        h3 {
+            margin-top: 0;
+            color: #4d2e12;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.5;
+        }
+
+        form {
+            margin: 0;
+        }
+
+        .btn {
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .quest-status {
+            display: inline-block;
+            background: #dcf0dc;
+            border: 2px solid #326134;
+            color: #204424;
+            border-radius: 6px;
+            padding: .5rem 1rem;
+            font-weight: bold;
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            transition: .2s;
+        }
+    }
+}

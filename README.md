@@ -64,9 +64,7 @@ Permissions:
 
 ## 4. Test Account Credentials
 
-All accounts use the password:
-
-`P@$$w0rd!`
+All accounts use a test password
 
 | Role | Username | Email |
 |-------|----------|-------|

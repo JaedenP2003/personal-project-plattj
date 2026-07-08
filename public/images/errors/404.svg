@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" width="480" height="420" role="img" aria-labelledby="title404 desc404">
+<title id="title404">A broken signpost deep in the Lost Woods</title>
+<desc id="desc404">A wooden signpost with two intact arrow signs and one broken, dangling sign, surrounded by dark pine trees and fireflies at night.</desc>
+<defs>
+    <linearGradient id="forestGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#24401c"/>
+        <stop offset="100%" stop-color="#0c1710"/>
+    </linearGradient>
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#f3e9c9" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#f3e9c9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fireflyGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ffe9a8" stop-opacity="0.8"/>
+        <stop offset="100%" stop-color="#ffe9a8" stop-opacity="0"/>
+    </radialGradient>
+</defs>
+
+<rect x="0" y="0" width="480" height="420" rx="20" fill="url(#forestGrad)"/>
+
+<circle cx="380" cy="70" r="58" fill="url(#moonGlow)"/>
+<circle cx="380" cy="70" r="32" fill="#f3e9c9" opacity="0.9"/>
+
+<ellipse cx="240" cy="262" rx="260" ry="16" fill="#ffffff" opacity="0.05"/>
+<ellipse cx="240" cy="312" rx="280" ry="20" fill="#ffffff" opacity="0.04"/>
+
+<polygon points="40,392 60,320 80,392" fill="#2c4a22" opacity="0.55"/>
+<polygon points="92,396 114,300 136,396" fill="#2c4a22" opacity="0.55"/>
+<polygon points="330,396 352,305 374,396" fill="#2c4a22" opacity="0.55"/>
+<polygon points="400,393 420,330 440,393" fill="#2c4a22" opacity="0.55"/>
+
+<polygon points="10,420 45,270 80,420" fill="#132411"/>
+<polygon points="60,420 100,250 140,420" fill="#132411"/>
+<polygon points="340,420 380,255 420,420" fill="#132411"/>
+<polygon points="390,420 430,275 470,420" fill="#132411"/>
+
+<ellipse cx="240" cy="405" rx="70" ry="12" fill="#08120a" opacity="0.6"/>
+<ellipse cx="175" cy="402" rx="14" ry="8" fill="#4a463d"/>
+<ellipse cx="303" cy="406" rx="18" ry="9" fill="#3d3a32"/>
+
+<path d="M150,404 q4,-14 8,0" stroke="#2f5424" stroke-width="2" fill="none"/>
+<path d="M162,406 q4,-12 8,0" stroke="#2f5424" stroke-width="2" fill="none"/>
+<path d="M312,408 q4,-13 8,0" stroke="#2f5424" stroke-width="2" fill="none"/>
+
+<rect x="232" y="180" width="16" height="225" rx="3" fill="#5c4126"/>
+<line x1="236" y1="190" x2="236" y2="398" stroke="#4a341d" stroke-width="1" opacity="0.6"/>
+<line x1="244" y1="185" x2="244" y2="400" stroke="#6e4f2c" stroke-width="1" opacity="0.5"/>
+
+<polygon points="240,332 236,340 244,340" fill="#8f6b2e" opacity="0.8"/>
+<polygon points="236,340 232,348 240,348" fill="#8f6b2e" opacity="0.8"/>
+<polygon points="244,340 240,348 248,348" fill="#8f6b2e" opacity="0.8"/>
+
+<g transform="translate(240,205) rotate(-12)">
+    <polygon points="-70,-16 40,-16 62,0 40,16 -70,16" fill="#e9d9b8" stroke="#3d2c17" stroke-width="2"/>
+    <line x1="-60" y1="0" x2="30" y2="0" stroke="#c7ab6d" stroke-width="1" opacity="0.6"/>
+</g>
+
+<g transform="translate(240,250) rotate(16)">
+    <polygon points="-40,-14 60,-14 78,0 60,14 -40,14" fill="#e9d9b8" stroke="#3d2c17" stroke-width="2"/>
+    <line x1="-30" y1="0" x2="50" y2="0" stroke="#c7ab6d" stroke-width="1" opacity="0.6"/>
+</g>
+
+<path d="M244,278 Q252,300 246,318" stroke="#7a5c34" stroke-width="2" fill="none" stroke-dasharray="1,4"/>
+<path d="M244,278 L252,286 L246,292" stroke="#3d2c17" stroke-width="1.5" fill="none"/>
+<polygon points="248,282 254,278 252,288" fill="#c7ab6d" opacity="0.8"/>
+<g transform="translate(252,330) rotate(65)">
+    <polygon points="-28,-13 24,-13 36,0 24,13 -28,13" fill="#e9d9b8" stroke="#3d2c17" stroke-width="2"/>
+</g>
+
+<g>
+    <circle cx="150" cy="150" r="14" fill="url(#fireflyGlow)"/>
+    <circle cx="150" cy="150" r="3" fill="#ffe9a8"/>
+</g>
+<g>
+    <circle cx="330" cy="180" r="10" fill="url(#fireflyGlow)"/>
+    <circle cx="330" cy="180" r="2.5" fill="#ffe9a8"/>
+</g>
+<g>
+    <circle cx="200" cy="112" r="8" fill="url(#fireflyGlow)"/>
+    <circle cx="200" cy="112" r="2" fill="#ffe9a8"/>
+</g>
+</svg>

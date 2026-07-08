@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Login Form
+   ========================================================================== */
+
+.form-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: left;
+
+    h1 {
+        text-align: center;
+        color: #4d2e12;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: .75rem;
+    }
+
+    input {
+        padding: .6rem;
+        border: 2px solid #c7ab6d;
+        border-radius: 6px;
+        background: #f5ecd2;
+        font-family: inherit;
+    }
+
+    .btn {
+        margin-top: 1.5rem;
+        align-self: center;
+    }
+
+    p {
+        text-align: center;
+    }
+}
