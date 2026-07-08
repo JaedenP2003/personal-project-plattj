@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<main>
+    <div id="admin-page">
+        <h1 class="section-title">Manage Quests</h1>
+        <div class="divider"></div>
+
+        <div class="admin-actions">
+            <a href="/admin/quests/new" class="btn">New Quest</a>
+            <a href="/admin/categories" class="btn btn-secondary">Manage Categories</a>
+        </div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Difficulty</th>
+                    <th>Reward</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% quests.forEach(function(quest) { %>
+                    <tr>
+                        <td><%= quest.title %></td>
+                        <td><%= quest.category %></td>
+                        <td><%= quest.difficulty %></td>
+                        <td><%= quest.reward %></td>
+                        <td><%= quest.is_active ? 'Active' : 'Inactive' %></td>
+                        <td class="admin-row-actions">
+                            <a href="/admin/quests/<%= quest.quest_id %>/edit" class="btn btn-small">Edit</a>
+                            <form action="/admin/quests/<%= quest.quest_id %>/toggle" method="post">
+                                <button type="submit" class="btn btn-small btn-secondary">
+                                    <%= quest.is_active ? 'Deactivate' : 'Activate' %>
+                                </button>
+                            </form>
+                            <form action="/admin/quests/<%= quest.quest_id %>/delete" method="post" onsubmit="return confirm('Delete this quest permanently? This also removes any accepted assignments for it.');">
+                                <button type="submit" class="btn btn-small btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

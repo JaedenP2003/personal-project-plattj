@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<%# Shared by "New Quest" and "Edit Quest" — quest is null on the new form,
+    populated on the edit form, which also determines the submit URL. %>
+<main>
+    <div id="admin-page">
+        <h1 class="section-title"><%= quest ? 'Edit Quest' : 'New Quest' %></h1>
+        <div class="divider"></div>
+
+        <form class="admin-form" action="<%= quest ? `/admin/quests/${quest.quest_id}/edit` : '/admin/quests' %>" method="post">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="<%= quest ? quest.title : '' %>" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" required><%= quest ? quest.description : '' %></textarea>
+
+            <label for="category_id">Category</label>
+            <select id="category_id" name="category_id" required>
+                <% categories.forEach(function(category) { %>
+                    <option value="<%= category.category_id %>" <%= quest && quest.category_id === category.category_id ? 'selected' : '' %>>
+                        <%= category.name %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <label for="difficulty">Difficulty</label>
+            <input type="text" id="difficulty" name="difficulty" value="<%= quest ? quest.difficulty : '' %>" required>
+
+            <label for="reward">Reward</label>
+            <input type="text" id="reward" name="reward" value="<%= quest ? quest.reward : '' %>" required>
+
+            <button type="submit" class="btn"><%= quest ? 'Save Changes' : 'Create Quest' %></button>
+        </form>
+
+        <a href="/admin/quests" class="admin-back-link">&larr; Back to Manage Quests</a>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+
+<%# Same pattern as admin/categories.ejs: per-row forms are declared below
+    the table and referenced from each row via the "form" attribute. %>
+<main>
+    <div id="admin-page">
+        <h1 class="section-title">Manage Accounts</h1>
+        <div class="divider"></div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% accounts.forEach(function(account) { %>
+                    <% const isSelf = account.account_id === accountData.account_id; %>
+                    <tr>
+                        <td><%= account.username %></td>
+                        <td><%= account.email %></td>
+                        <td>
+                            <% if (isSelf) { %>
+                                <%= account.role %> (you)
+                            <% } else { %>
+                                <select name="role_id" form="role-account-<%= account.account_id %>">
+                                    <% roles.forEach(function(role) { %>
+                                        <option value="<%= role.role_id %>" <%= role.role_id === account.role_id ? 'selected' : '' %>>
+                                            <%= role.name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            <% } %>
+                        </td>
+                        <td class="admin-row-actions">
+                            <% if (!isSelf) { %>
+                                <button type="submit" form="role-account-<%= account.account_id %>" class="btn btn-small">Save</button>
+                                <button type="submit" form="delete-account-<%= account.account_id %>" class="btn btn-small btn-danger">Delete</button>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <% accounts.forEach(function(account) { %>
+            <form id="role-account-<%= account.account_id %>" action="/admin/accounts/<%= account.account_id %>/role" method="post"></form>
+            <form id="delete-account-<%= account.account_id %>" action="/admin/accounts/<%= account.account_id %>/delete" method="post" onsubmit="return confirm('Delete this account permanently?');"></form>
+        <% }) %>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

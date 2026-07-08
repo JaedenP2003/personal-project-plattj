@@ -48,4 +48,40 @@ async function getAccountByEmail(email) {
     return result.rows[0];
 }
 
-export { checkExistingEmail, checkExistingUsername, registerAccount, getAccountByEmail };
+// Admin-facing account management -----------------------------------------
+
+async function getAllAccounts() {
+    const result = await query(
+        `SELECT a.account_id, a.first_name, a.last_name, a.username, a.email, a.created_at,
+                r.role_id, r.name AS role
+         FROM account a
+         JOIN role r ON r.role_id = a.role_id
+         ORDER BY a.created_at DESC`
+    );
+    return result.rows;
+}
+
+async function getAllRoles() {
+    const result = await query('SELECT role_id, name FROM role ORDER BY role_id');
+    return result.rows;
+}
+
+async function updateAccountRole(accountId, roleId) {
+    await query('UPDATE account SET role_id = $1 WHERE account_id = $2', [roleId, accountId]);
+}
+
+// Cascades to that account's quest_assignment/review rows (see schema.sql).
+async function deleteAccount(accountId) {
+    await query('DELETE FROM account WHERE account_id = $1', [accountId]);
+}
+
+export {
+    checkExistingEmail,
+    checkExistingUsername,
+    registerAccount,
+    getAccountByEmail,
+    getAllAccounts,
+    getAllRoles,
+    updateAccountRole,
+    deleteAccount,
+};

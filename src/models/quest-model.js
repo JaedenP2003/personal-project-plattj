@@ -60,4 +60,86 @@ async function getAssignmentsForAccount(accountId) {
     return result.rows;
 }
 
-export { getActiveQuests, getAssignmentForAccountAndQuest, acceptQuest, getAssignmentsForAccount };
+// Admin-facing quest management ------------------------------------------
+
+// Every quest regardless of is_active, for the admin list (the public
+// getActiveQuests above only shows active ones).
+async function getAllQuests() {
+    const result = await query(
+        `SELECT q.quest_id, q.title, q.difficulty, q.reward, q.is_active, qc.name AS category
+         FROM quest q
+         JOIN quest_category qc ON qc.category_id = q.category_id
+         ORDER BY q.created_at DESC`
+    );
+    return result.rows;
+}
+
+async function getQuestById(questId) {
+    const result = await query('SELECT * FROM quest WHERE quest_id = $1', [questId]);
+    return result.rows[0];
+}
+
+async function createQuest({ title, description, category_id, difficulty, reward, created_by }) {
+    await query(
+        `INSERT INTO quest (title, description, category_id, difficulty, reward, created_by)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [title, description, category_id, difficulty, reward, created_by]
+    );
+}
+
+async function updateQuest(questId, { title, description, category_id, difficulty, reward }) {
+    await query(
+        `UPDATE quest
+         SET title = $1, description = $2, category_id = $3, difficulty = $4, reward = $5
+         WHERE quest_id = $6`,
+        [title, description, category_id, difficulty, reward, questId]
+    );
+}
+
+async function toggleQuestActive(questId) {
+    await query('UPDATE quest SET is_active = NOT is_active WHERE quest_id = $1', [questId]);
+}
+
+// Cascades to that quest's assignments/submissions (see schema.sql) —
+// unlike toggleQuestActive, this removes the quest's history entirely.
+async function deleteQuest(questId) {
+    await query('DELETE FROM quest WHERE quest_id = $1', [questId]);
+}
+
+// Admin-facing category management ----------------------------------------
+
+async function getAllCategories() {
+    const result = await query('SELECT * FROM quest_category ORDER BY name');
+    return result.rows;
+}
+
+async function createCategory({ name, description }) {
+    await query('INSERT INTO quest_category (name, description) VALUES ($1, $2)', [name, description]);
+}
+
+async function updateCategory(categoryId, { name, description }) {
+    await query('UPDATE quest_category SET name = $1, description = $2 WHERE category_id = $3', [name, description, categoryId]);
+}
+
+// Blocked by quest.category_id's ON DELETE RESTRICT if any quest still
+// uses this category — the controller surfaces that as a flash error.
+async function deleteCategory(categoryId) {
+    await query('DELETE FROM quest_category WHERE category_id = $1', [categoryId]);
+}
+
+export {
+    getActiveQuests,
+    getAssignmentForAccountAndQuest,
+    acceptQuest,
+    getAssignmentsForAccount,
+    getAllQuests,
+    getQuestById,
+    createQuest,
+    updateQuest,
+    toggleQuestActive,
+    deleteQuest,
+    getAllCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory,
+};

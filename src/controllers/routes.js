@@ -13,7 +13,24 @@ import {
 import { registrationRules, checkRegData, loginRules, checkLoginData } from '../utils/account-validation.js';
 import { buildQuests, acceptQuestHandler, buildMyQuests } from './quest-controller.js';
 import { buildDashboard } from './dashboard-controller.js';
-import { requireLogin } from '../middleware/auth.js';
+import {
+    buildQuestList,
+    buildNewQuest,
+    createQuestHandler,
+    buildEditQuest,
+    updateQuestHandler,
+    toggleQuestHandler,
+    deleteQuestHandler,
+    buildCategoryList,
+    createCategoryHandler,
+    updateCategoryHandler,
+    deleteCategoryHandler,
+    buildAccountList,
+    updateAccountRoleHandler,
+    deleteAccountHandler,
+} from './admin-controller.js';
+import { questRules, checkQuestData, categoryRules, checkCategoryData } from '../utils/quest-validation.js';
+import { requireLogin, requireRole } from '../middleware/auth.js';
 
 const router = Router();
 router.get('/', homePage);
@@ -33,5 +50,25 @@ router.get('/quests', buildQuests);
 router.post('/quests/:id/accept', requireLogin, acceptQuestHandler);
 router.get('/myquests', requireLogin, buildMyQuests);
 router.get('/dashboard', requireLogin, buildDashboard);
+
+// Every /admin/* route is Administrator-only.
+const adminOnly = [requireLogin, requireRole('Administrator')];
+
+router.get('/admin/quests', ...adminOnly, buildQuestList);
+router.get('/admin/quests/new', ...adminOnly, buildNewQuest);
+router.post('/admin/quests', ...adminOnly, questRules(), checkQuestData, createQuestHandler);
+router.get('/admin/quests/:id/edit', ...adminOnly, buildEditQuest);
+router.post('/admin/quests/:id/edit', ...adminOnly, questRules(), checkQuestData, updateQuestHandler);
+router.post('/admin/quests/:id/toggle', ...adminOnly, toggleQuestHandler);
+router.post('/admin/quests/:id/delete', ...adminOnly, deleteQuestHandler);
+
+router.get('/admin/categories', ...adminOnly, buildCategoryList);
+router.post('/admin/categories', ...adminOnly, categoryRules(), checkCategoryData, createCategoryHandler);
+router.post('/admin/categories/:id/edit', ...adminOnly, categoryRules(), checkCategoryData, updateCategoryHandler);
+router.post('/admin/categories/:id/delete', ...adminOnly, deleteCategoryHandler);
+
+router.get('/admin/accounts', ...adminOnly, buildAccountList);
+router.post('/admin/accounts/:id/role', ...adminOnly, updateAccountRoleHandler);
+router.post('/admin/accounts/:id/delete', ...adminOnly, deleteAccountHandler);
 
 export default router;

@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+
+<%# Each row needs two independent forms (Save vs Delete). A <form> can't
+    wrap table cells directly, so the forms are declared once below the
+    table and the inputs/buttons in each row reference them by id via the
+    HTML "form" attribute instead of nesting. %>
+<main>
+    <div id="admin-page">
+        <h1 class="section-title">Manage Categories</h1>
+        <div class="divider"></div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% categories.forEach(function(category) { %>
+                    <tr>
+                        <td><input type="text" name="name" value="<%= category.name %>" form="edit-category-<%= category.category_id %>" required></td>
+                        <td><input type="text" name="description" value="<%= category.description || '' %>" form="edit-category-<%= category.category_id %>"></td>
+                        <td class="admin-row-actions">
+                            <button type="submit" form="edit-category-<%= category.category_id %>" class="btn btn-small">Save</button>
+                            <button type="submit" form="delete-category-<%= category.category_id %>" class="btn btn-small btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <% categories.forEach(function(category) { %>
+            <form id="edit-category-<%= category.category_id %>" action="/admin/categories/<%= category.category_id %>/edit" method="post"></form>
+            <form id="delete-category-<%= category.category_id %>" action="/admin/categories/<%= category.category_id %>/delete" method="post" onsubmit="return confirm('Delete this category? This will fail if any quest still uses it.');"></form>
+        <% }) %>
+
+        <h2 class="admin-subheading">Add a Category</h2>
+        <form class="admin-form" action="/admin/categories" method="post">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description">
+
+            <button type="submit" class="btn">Add Category</button>
+        </form>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

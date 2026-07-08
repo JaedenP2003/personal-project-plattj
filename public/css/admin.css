@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Admin Pages (Manage Quests / Categories / Accounts)
+   ========================================================================== */
+
+#admin-page {
+    padding: 2rem;
+    text-align: left;
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #332411;
+        text-shadow: 1px 1px #fff2bf;
+        text-align: center;
+    }
+
+    .divider {
+        width: 300px;
+        height: 2px;
+        background: #ad8d4f;
+        margin: auto;
+        margin-bottom: 3rem;
+        position: relative;
+
+        &::after {
+            content: "✦";
+            position: absolute;
+            left: 50%;
+            top: -10px;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #ad8d4f;
+        }
+    }
+
+    .admin-actions {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .admin-subheading {
+        color: #4d2e12;
+        margin-top: 2.5rem;
+    }
+
+    .admin-back-link {
+        display: inline-block;
+        margin-top: 1.5rem;
+        color: #5c4126;
+        font-weight: bold;
+    }
+
+    .btn-small {
+        padding: .5rem 1rem;
+        font-size: .85rem;
+    }
+
+    .btn-secondary {
+        background: linear-gradient(#ad8d4f, #8f6b2e);
+        border-color: #6b4f16;
+    }
+
+    .btn-danger {
+        background: linear-gradient(#a83232, #7a1f1f);
+        border-color: #5c1717;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #f5ecd2;
+        border: 2px solid #c7ab6d;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+
+        th, td {
+            padding: .85rem 1.25rem;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #e9d9b8;
+            color: #4d2e12;
+        }
+
+        tr:not(:last-child) td {
+            border-bottom: 1px solid #c7ab6d;
+        }
+
+        input[type="text"], select {
+            padding: .4rem .6rem;
+            border: 2px solid #c7ab6d;
+            border-radius: 6px;
+            background: #fff;
+            font-family: inherit;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+
+    .admin-row-actions {
+        display: flex;
+        gap: .5rem;
+        flex-wrap: wrap;
+    }
+
+    .admin-form {
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+
+        label {
+            font-weight: bold;
+            margin-top: .75rem;
+            color: #4d2e12;
+        }
+
+        input, textarea, select {
+            padding: .6rem;
+            border: 2px solid #c7ab6d;
+            border-radius: 6px;
+            background: #f5ecd2;
+            font-family: inherit;
+        }
+
+        .btn {
+            margin-top: 1.5rem;
+            align-self: flex-start;
+        }
+    }
+}

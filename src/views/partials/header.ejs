@@ -18,7 +18,7 @@
         <nav>
             <ul>
                 <!-- Always visible navigation links -->
-                <li><a href="/"><img src="images/questboardlogo.png" alt="Hyrule Quest Board Logo" class="logo" title="Hyrule Quest Board Logo"></a></li>
+                <li><a href="/"><img src="/images/questboardlogo.png" alt="Hyrule Quest Board Logo" class="logo" title="Hyrule Quest Board Logo"></a></li>
                 <li><a href="/quests">Quests</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
@@ -30,6 +30,9 @@
                 <% if (locals.loggedin) { %>
                     <li><a href="/myquests">My Quests</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
+                    <% if (accountData.role === 'Administrator') { %>
+                        <li><a href="/admin/quests">Admin</a></li>
+                    <% } %>
                     <li><a href="/logout">Logout</a></li>
                 <% } else { %>
                     <li><a href="/login">Login</a></li>
