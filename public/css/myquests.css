@@ -126,5 +126,47 @@
             font-style: italic;
             color: #5c4126;
         }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            margin-top: 1rem;
+            border-top: 1px solid #c7ab6d;
+            padding-top: 1rem;
+
+            label {
+                font-weight: bold;
+                color: #4d2e12;
+            }
+
+            select, textarea {
+                padding: .5rem;
+                border: 2px solid #c7ab6d;
+                border-radius: 6px;
+                background: #fff;
+                font-family: inherit;
+            }
+
+            textarea {
+                resize: vertical;
+            }
+
+            .btn-small {
+                padding: .5rem 1rem;
+                font-size: .85rem;
+            }
+
+            .btn-danger {
+                background: linear-gradient(#a83232, #7a1f1f);
+                border-color: #5c1717;
+            }
+        }
+
+        .review-form-actions {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+        }
     }
 }

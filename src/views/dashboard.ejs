@@ -66,6 +66,43 @@
                 <% }) %>
             <% } %>
 
+            <h2 class="dashboard-subheading">Flagged Reviews</h2>
+
+            <% if (!flaggedReviews.length) { %>
+                <p class="empty-state">No reviews have been reported right now.</p>
+            <% } else { %>
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Quest</th>
+                            <th>Reviewer</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% flaggedReviews.forEach(function(review) { %>
+                            <tr>
+                                <td><%= review.quest_title %></td>
+                                <td><%= review.reviewer_username %></td>
+                                <td><%= review.rating %> ★</td>
+                                <td><%= review.comment %></td>
+                                <td class="admin-row-actions">
+                                    <button type="submit" form="dismiss-review-<%= review.review_id %>" class="btn btn-small btn-secondary">Dismiss</button>
+                                    <button type="submit" form="delete-review-<%= review.review_id %>" class="btn btn-small btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+
+                <% flaggedReviews.forEach(function(review) { %>
+                    <form id="dismiss-review-<%= review.review_id %>" action="/reviews/<%= review.review_id %>/unflag" method="post"></form>
+                    <form id="delete-review-<%= review.review_id %>" action="/reviews/<%= review.review_id %>/delete" method="post" onsubmit="return confirm('Delete this review permanently?');"></form>
+                <% }) %>
+            <% } %>
+
         <% } else { %>
             <p class="dashboard-intro">Welcome back, <%= accountData.first_name %>. Here's how the Quest Board is doing:</p>
 

@@ -17,6 +17,10 @@
                         <p><%= quest.description %></p>
                         <p><strong>Reward:</strong> <%= quest.reward %></p>
 
+                        <% if (quest.review_count) { %>
+                            <p class="rating-summary">★ <%= quest.avg_rating %> (<%= quest.review_count %> review<%= quest.review_count == 1 ? '' : 's' %>)</p>
+                        <% } %>
+
                         <% if (quest.my_status) { %>
                             <span class="quest-status">Already <%= quest.my_status %></span>
                         <% } else if (locals.loggedin && accountData.role === 'Hero') { %>
@@ -25,6 +29,24 @@
                             </form>
                         <% } else if (!locals.loggedin) { %>
                             <a href="/login" class="btn">Login to Accept</a>
+                        <% } %>
+
+                        <% if (quest.reviews.length) { %>
+                            <ul class="review-list">
+                                <% quest.reviews.forEach(function(review) { %>
+                                    <li class="review-item">
+                                        <p class="review-meta"><strong><%= review.reviewer_username %></strong> — <%= review.rating %> ★</p>
+                                        <% if (review.comment) { %>
+                                            <p class="review-comment"><%= review.comment %></p>
+                                        <% } %>
+                                        <% if (locals.loggedin) { %>
+                                            <form action="/reviews/<%= review.review_id %>/flag" method="post">
+                                                <button type="submit" class="review-report-btn">Report</button>
+                                            </form>
+                                        <% } %>
+                                    </li>
+                                <% }) %>
+                            </ul>
                         <% } %>
                     </article>
                 <% }) %>

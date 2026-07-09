@@ -31,7 +31,20 @@ import {
 } from './admin-controller.js';
 import { questRules, checkQuestData, categoryRules, checkCategoryData } from '../utils/quest-validation.js';
 import { submitReportHandler, reviewSubmissionHandler } from './submission-controller.js';
-import { submissionRules, checkSubmissionData, reviewRules, checkReviewData } from '../utils/submission-validation.js';
+import {
+    submissionRules,
+    checkSubmissionData,
+    reviewRules as submissionReviewRules,
+    checkReviewData as checkSubmissionReviewData,
+} from '../utils/submission-validation.js';
+import {
+    createReviewHandler,
+    updateReviewHandler,
+    deleteReviewHandler,
+    flagReviewHandler,
+    unflagReviewHandler,
+} from './review-controller.js';
+import { reviewRules as questReviewRules, checkReviewData as checkQuestReviewData } from '../utils/review-validation.js';
 import { requireLogin, requireRole } from '../middleware/auth.js';
 
 const router = Router();
@@ -61,10 +74,19 @@ router.post(
     '/submissions/:id/review',
     requireLogin,
     requireRole('Guild Officer'),
-    reviewRules(),
-    checkReviewData,
+    submissionReviewRules(),
+    checkSubmissionReviewData,
     reviewSubmissionHandler
 );
+
+// Quest reviews: create/edit are the reviewing Hero's own action; delete is
+// shared between the owner and a Guild Officer (see review-controller.js);
+// flagging is any logged-in user, dismissing a flag is Guild-Officer-only.
+router.post('/myquests/:id/review', requireLogin, questReviewRules(), checkQuestReviewData, createReviewHandler);
+router.post('/reviews/:id/edit', requireLogin, questReviewRules(), checkQuestReviewData, updateReviewHandler);
+router.post('/reviews/:id/delete', requireLogin, deleteReviewHandler);
+router.post('/reviews/:id/flag', requireLogin, flagReviewHandler);
+router.post('/reviews/:id/unflag', requireLogin, requireRole('Guild Officer'), unflagReviewHandler);
 
 // Every /admin/* route is Administrator-only.
 const adminOnly = [requireLogin, requireRole('Administrator')];

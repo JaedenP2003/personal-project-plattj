@@ -36,6 +36,11 @@
         margin-bottom: 2rem;
     }
 
+    .dashboard-subheading {
+        color: #4d2e12;
+        margin-top: 2.5rem;
+    }
+
     .empty-state {
         color: #5c4126;
         font-size: 1.1rem;
@@ -117,6 +122,11 @@
             .btn-danger {
                 background: linear-gradient(#a83232, #7a1f1f);
                 border-color: #5c1717;
+            }
+
+            .btn-secondary {
+                background: linear-gradient(#ad8d4f, #8f6b2e);
+                border-color: #6b4f16;
             }
         }
     }

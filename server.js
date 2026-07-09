@@ -18,6 +18,12 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+// Render sits in front of the app as a reverse proxy that terminates TLS,
+// so Express only ever sees plain HTTP internally. Trusting the proxy
+// makes req.secure (and therefore the "secure" cookie flag below) reflect
+// the real client-facing protocol instead of always reading as insecure.
+app.set('trust proxy', 1);
+
 // connect-pg-simple needs the session constructor to build its store class.
 const pgSession = connectPgSimple(session);
 
@@ -51,7 +57,14 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: true },
+    cookie: {
+        httpOnly: true,
+        // Only require HTTPS for the cookie in production — localhost
+        // dev is plain HTTP, so this would otherwise silently break login.
+        secure: NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000,
+    },
 }));
 
 // Makes login state available to every view without each controller having

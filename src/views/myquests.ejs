@@ -33,6 +33,41 @@
                         <% } else if (assignment.review_notes) { %>
                             <p class="submission-note"><strong>Officer notes:</strong> <%= assignment.review_notes %></p>
                         <% } %>
+
+                        <%# Only a Completed quest can be reviewed. If the Hero
+                            already left one, show it with edit/delete instead
+                            of a second create form (one review per quest). %>
+                        <% if (assignment.status === 'Completed') { %>
+                            <% if (assignment.review_id) { %>
+                                <form class="review-form" action="/reviews/<%= assignment.review_id %>/edit" method="post">
+                                    <label for="rating-<%= assignment.review_id %>">Your Rating</label>
+                                    <select id="rating-<%= assignment.review_id %>" name="rating">
+                                        <% for (let star = 1; star <= 5; star++) { %>
+                                            <option value="<%= star %>" <%= assignment.review_rating === star ? 'selected' : '' %>><%= star %> ★</option>
+                                        <% } %>
+                                    </select>
+                                    <label for="comment-<%= assignment.review_id %>">Your Review</label>
+                                    <textarea id="comment-<%= assignment.review_id %>" name="comment" rows="2"><%= assignment.review_comment || '' %></textarea>
+                                    <div class="review-form-actions">
+                                        <button type="submit" class="btn btn-small">Update Review</button>
+                                        <button type="submit" form="delete-review-<%= assignment.review_id %>" class="btn btn-small btn-danger">Delete Review</button>
+                                    </div>
+                                </form>
+                                <form id="delete-review-<%= assignment.review_id %>" action="/reviews/<%= assignment.review_id %>/delete" method="post" onsubmit="return confirm('Delete your review for this quest?');"></form>
+                            <% } else { %>
+                                <form class="review-form" action="/myquests/<%= assignment.assignment_id %>/review" method="post">
+                                    <label for="rating-<%= assignment.assignment_id %>">Rate this Quest</label>
+                                    <select id="rating-<%= assignment.assignment_id %>" name="rating">
+                                        <% for (let star = 5; star >= 1; star--) { %>
+                                            <option value="<%= star %>"><%= star %> ★</option>
+                                        <% } %>
+                                    </select>
+                                    <label for="comment-<%= assignment.assignment_id %>">Leave a Review (optional)</label>
+                                    <textarea id="comment-<%= assignment.assignment_id %>" name="comment" rows="2"></textarea>
+                                    <button type="submit" class="btn btn-small">Post Review</button>
+                                </form>
+                            <% } %>
+                        <% } %>
                     </article>
                 <% }) %>
             </section>

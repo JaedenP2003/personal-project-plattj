@@ -4,10 +4,19 @@ import {
     acceptQuest,
     getAssignmentsForAccount,
 } from '../models/quest-model.js';
+import { getReviewsForQuest } from '../models/review-model.js';
 
 const buildQuests = async (req, res) => {
     const accountId = req.session.account?.account_id || null;
     const quests = await getActiveQuests(accountId);
+
+    // Small N+1 (one review-list query per quest) rather than a single
+    // aggregated query — the quest count is small and this keeps both
+    // queries readable on their own.
+    for (const quest of quests) {
+        quest.reviews = await getReviewsForQuest(quest.quest_id);
+    }
+
     res.render('quests', { title: 'Quests', pageStyle: 'quests', quests });
 };
 

@@ -6,15 +6,23 @@ import { query } from './db.js';
 // (if any) attached via LEFT JOIN so the quests page can show "Accept" vs
 // "Already Accepted" per quest. accountId is null for anonymous visitors,
 // which makes the join match nothing and my_status come back null for
-// every row — exactly the "not accepted" state we want.
+// every row — exactly the "not accepted" state we want. Also LEFT JOINs a
+// per-quest rating aggregate so each card can show "★ avg (count)" without
+// a separate query per quest.
 async function getActiveQuests(accountId) {
     const result = await query(
         `SELECT q.quest_id, q.title, q.description, q.difficulty, q.reward,
-                qc.name AS category, qs.name AS my_status
+                qc.name AS category, qs.name AS my_status,
+                rs.avg_rating, rs.review_count
          FROM quest q
          JOIN quest_category qc ON qc.category_id = q.category_id
          LEFT JOIN quest_assignment qa ON qa.quest_id = q.quest_id AND qa.account_id = $1
          LEFT JOIN quest_status qs ON qs.status_id = qa.status_id
+         LEFT JOIN (
+             SELECT quest_id, ROUND(AVG(rating), 1) AS avg_rating, COUNT(*) AS review_count
+             FROM review
+             GROUP BY quest_id
+         ) rs ON rs.quest_id = q.quest_id
          WHERE q.is_active = TRUE
          ORDER BY q.created_at DESC`,
         [accountId]
@@ -46,18 +54,22 @@ async function acceptQuest(accountId, questId) {
 // An account's own assignments for the My Quests page. LEFT JOINed to
 // quest_submission (at most one per assignment, per the "no resubmission"
 // rule) so the page can show the Hero their own report text and any
-// officer feedback once one exists.
+// officer feedback once one exists — and to review (at most one per
+// account+quest, enforced at the app level) so the page can show an
+// existing review or offer to create one.
 async function getAssignmentsForAccount(accountId) {
     const result = await query(
         `SELECT qa.assignment_id, qa.accepted_at, qa.updated_at,
-                q.title, q.description, q.difficulty, q.reward,
+                q.quest_id, q.title, q.description, q.difficulty, q.reward,
                 qc.name AS category, qs.name AS status,
-                qsub.submission_text, qsub.review_notes
+                qsub.submission_text, qsub.review_notes,
+                r.review_id, r.rating AS review_rating, r.comment AS review_comment
          FROM quest_assignment qa
          JOIN quest q ON q.quest_id = qa.quest_id
          JOIN quest_category qc ON qc.category_id = q.category_id
          JOIN quest_status qs ON qs.status_id = qa.status_id
          LEFT JOIN quest_submission qsub ON qsub.assignment_id = qa.assignment_id
+         LEFT JOIN review r ON r.quest_id = qa.quest_id AND r.account_id = qa.account_id
          WHERE qa.account_id = $1
          ORDER BY qa.accepted_at DESC`,
         [accountId]
