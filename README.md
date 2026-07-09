@@ -10,7 +10,7 @@ The site is designed for fans of The Legend of Zelda and serves as a demonstrati
 
 ## 2. Database Schema
 
-![Hyrule Quest Board ERD Diagram](/images/HyruleQuestBoardERD.png)
+![Hyrule Quest Board ERD Diagram](public/images/HyruleQuestBoardERD.png)
 
 ---
 
