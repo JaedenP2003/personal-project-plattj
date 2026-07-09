@@ -15,42 +15,22 @@
     <div id="quests">
         <h2 class="section-title">Featured Quests</h2>
         <div class="divider"></div>
-        <%# Hardcoded placeholder quests — the quest table/routes/views
-            don't exist yet. Once they do, this section should loop over
-            real quests passed in from homePage in src/controllers/index.js
-            instead of listing them by hand here. %>
-        <section class="quest-grid">
-            <article class="quest-card">
-                <h3>⚔️ Monster Hunt</h3>
-                <p><strong>Difficulty:</strong> Hard</p>
-                <p>
-                    A Hinox has been terrorizing travelers near West Necluda.
-                    Defeat the beast and restore safety to the roads.
-                </p>
-                <p><strong>Reward:</strong> 💎 300 Rupees</p>
-                <a href="#" class="btn">View Quest</a>
-            </article>
-            <article class="quest-card">
-                <h3>📦 Delivery Quest</h3>
-                <p><strong>Difficulty:</strong> Easy</p>
-                <p>
-                    A healer in Kakariko Village urgently needs medicine
-                    delivered before nightfall. Time is of the essence.
-                </p>
-                <p><strong>Reward:</strong> 💎 75 Rupees</p>
-                <a href="#" class="btn">View Quest</a>
-            </article>
-            <article class="quest-card">
-                <h3>🏛️ Shrine Investigation</h3>
-                <p><strong>Difficulty:</strong> Medium</p>
-                <p>
-                    Strange lights have been seen near an ancient shrine in
-                    Hebra. Investigate the disturbance and report your findings.
-                </p>
-                <p><strong>Reward:</strong> 💎 150 Rupees</p>
-                <a href="#" class="btn">View Quest</a>
-            </article>
-        </section>
+        <% if (!quests.length) { %>
+            <p class="empty-state">No quests are posted right now. Check back soon, traveler.</p>
+        <% } else { %>
+            <section class="quest-grid">
+                <% quests.forEach(function(quest) { %>
+                    <article class="quest-card">
+                        <h3><%= quest.title %></h3>
+                        <p><strong>Category:</strong> <%= quest.category %></p>
+                        <p><strong>Difficulty:</strong> <%= quest.difficulty %></p>
+                        <p><%= quest.description %></p>
+                        <p><strong>Reward:</strong> <%= quest.reward %></p>
+                        <a href="/quests" class="btn">View Quest</a>
+                    </article>
+                <% }) %>
+            </section>
+        <% } %>
     </div>
 </main>
 

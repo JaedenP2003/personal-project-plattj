@@ -29,12 +29,19 @@
             <% if (!pendingSubmissions.length) { %>
                 <p class="empty-state">No submissions are waiting for review right now.</p>
             <% } else { %>
+                <%# A <form> can't wrap table cells directly (see
+                    admin/categories.ejs for the same constraint), so each
+                    row's notes textarea + Approve/Reject buttons reference
+                    a <form> declared below the table via the "form"
+                    attribute, instead of nesting one inline. %>
                 <table class="dashboard-table">
                     <thead>
                         <tr>
                             <th>Quest</th>
                             <th>Hero</th>
+                            <th>Report</th>
                             <th>Submitted</th>
+                            <th>Review</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,11 +49,21 @@
                             <tr>
                                 <td><%= submission.title %></td>
                                 <td><%= submission.hero_username %></td>
+                                <td><%= submission.submission_text %></td>
                                 <td><%= submission.submitted_at.toLocaleDateString() %></td>
+                                <td class="admin-row-actions">
+                                    <textarea name="review_notes" placeholder="Notes (optional)" form="review-submission-<%= submission.submission_id %>"></textarea>
+                                    <button type="submit" name="decision" value="Approved" form="review-submission-<%= submission.submission_id %>" class="btn btn-small">Approve</button>
+                                    <button type="submit" name="decision" value="Rejected" form="review-submission-<%= submission.submission_id %>" class="btn btn-small btn-danger">Reject</button>
+                                </td>
                             </tr>
                         <% }) %>
                     </tbody>
                 </table>
+
+                <% pendingSubmissions.forEach(function(submission) { %>
+                    <form id="review-submission-<%= submission.submission_id %>" action="/submissions/<%= submission.submission_id %>/review" method="post"></form>
+                <% }) %>
             <% } %>
 
         <% } else { %>

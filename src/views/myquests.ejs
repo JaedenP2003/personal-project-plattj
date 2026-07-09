@@ -16,7 +16,23 @@
                         <p><strong>Difficulty:</strong> <%= assignment.difficulty %></p>
                         <p><%= assignment.description %></p>
                         <p><strong>Reward:</strong> <%= assignment.reward %></p>
-                        <span class="quest-status"><%= assignment.status %></span>
+                        <span class="quest-status quest-status-<%= assignment.status.toLowerCase() %>"><%= assignment.status %></span>
+
+                        <%# Accepted: no report yet, show the submit form.
+                            Submitted: waiting on a Guild Officer.
+                            Completed/Rejected: terminal, show the officer's
+                            notes if they left any (no resubmission). %>
+                        <% if (assignment.status === 'Accepted') { %>
+                            <form class="submission-form" action="/myquests/<%= assignment.assignment_id %>/submit" method="post">
+                                <label for="submission_text-<%= assignment.assignment_id %>">Completion Report</label>
+                                <textarea id="submission_text-<%= assignment.assignment_id %>" name="submission_text" rows="3" required></textarea>
+                                <button type="submit" class="btn btn-small">Submit Report</button>
+                            </form>
+                        <% } else if (assignment.status === 'Submitted') { %>
+                            <p class="submission-note">Your report is in — awaiting review.</p>
+                        <% } else if (assignment.review_notes) { %>
+                            <p class="submission-note"><strong>Officer notes:</strong> <%= assignment.review_notes %></p>
+                        <% } %>
                     </article>
                 <% }) %>
             </section>

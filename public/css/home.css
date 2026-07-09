@@ -63,6 +63,11 @@
         }
     }
 
+    .empty-state {
+        color: #5c4126;
+        font-size: 1.1rem;
+    }
+
     .quest-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

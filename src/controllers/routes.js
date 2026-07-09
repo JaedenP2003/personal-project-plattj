@@ -2,7 +2,7 @@
 // that handles it. server.js mounts this whole router at '/'.
 
 import { Router } from 'express';
-import { homePage } from './index.js';
+import { homePage, buildAbout, buildContact } from './index.js';
 import {
     buildRegister,
     buildLogin,
@@ -30,10 +30,14 @@ import {
     deleteAccountHandler,
 } from './admin-controller.js';
 import { questRules, checkQuestData, categoryRules, checkCategoryData } from '../utils/quest-validation.js';
+import { submitReportHandler, reviewSubmissionHandler } from './submission-controller.js';
+import { submissionRules, checkSubmissionData, reviewRules, checkReviewData } from '../utils/submission-validation.js';
 import { requireLogin, requireRole } from '../middleware/auth.js';
 
 const router = Router();
 router.get('/', homePage);
+router.get('/about', buildAbout);
+router.get('/contact', buildContact);
 
 // GET renders the empty form; POST handles the submission. On a POST, the
 // request passes through the validation rules and the check-and-flash
@@ -49,7 +53,18 @@ router.get('/logout', logoutAccountHandler);
 router.get('/quests', buildQuests);
 router.post('/quests/:id/accept', requireLogin, acceptQuestHandler);
 router.get('/myquests', requireLogin, buildMyQuests);
+router.post('/myquests/:id/submit', requireLogin, submissionRules(), checkSubmissionData, submitReportHandler);
 router.get('/dashboard', requireLogin, buildDashboard);
+
+// Reviewing a submission is a Guild Officer action.
+router.post(
+    '/submissions/:id/review',
+    requireLogin,
+    requireRole('Guild Officer'),
+    reviewRules(),
+    checkReviewData,
+    reviewSubmissionHandler
+);
 
 // Every /admin/* route is Administrator-only.
 const adminOnly = [requireLogin, requireRole('Administrator')];

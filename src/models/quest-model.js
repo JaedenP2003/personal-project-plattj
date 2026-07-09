@@ -43,21 +43,39 @@ async function acceptQuest(accountId, questId) {
     );
 }
 
-// An account's own assignments for the My Quests page.
+// An account's own assignments for the My Quests page. LEFT JOINed to
+// quest_submission (at most one per assignment, per the "no resubmission"
+// rule) so the page can show the Hero their own report text and any
+// officer feedback once one exists.
 async function getAssignmentsForAccount(accountId) {
     const result = await query(
         `SELECT qa.assignment_id, qa.accepted_at, qa.updated_at,
                 q.title, q.description, q.difficulty, q.reward,
-                qc.name AS category, qs.name AS status
+                qc.name AS category, qs.name AS status,
+                qsub.submission_text, qsub.review_notes
          FROM quest_assignment qa
          JOIN quest q ON q.quest_id = qa.quest_id
          JOIN quest_category qc ON qc.category_id = q.category_id
          JOIN quest_status qs ON qs.status_id = qa.status_id
+         LEFT JOIN quest_submission qsub ON qsub.assignment_id = qa.assignment_id
          WHERE qa.account_id = $1
          ORDER BY qa.accepted_at DESC`,
         [accountId]
     );
     return result.rows;
+}
+
+// Used to verify ownership + current status before allowing a submission
+// (see src/controllers/submission-controller.js).
+async function getAssignmentById(assignmentId) {
+    const result = await query(
+        `SELECT qa.assignment_id, qa.account_id, qa.quest_id, qs.name AS status
+         FROM quest_assignment qa
+         JOIN quest_status qs ON qs.status_id = qa.status_id
+         WHERE qa.assignment_id = $1`,
+        [assignmentId]
+    );
+    return result.rows[0];
 }
 
 // Admin-facing quest management ------------------------------------------
@@ -132,6 +150,7 @@ export {
     getAssignmentForAccountAndQuest,
     acceptQuest,
     getAssignmentsForAccount,
+    getAssignmentById,
     getAllQuests,
     getQuestById,
     createQuest,

@@ -1,1 +1,68 @@
-/* About page styles */
+/* ==========================================================================
+   About Page
+   ========================================================================== */
+
+#about-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #332411;
+        text-shadow: 1px 1px #fff2bf;
+    }
+
+    .divider {
+        width: 300px;
+        height: 2px;
+        background: #ad8d4f;
+        margin: auto;
+        margin-bottom: 2.5rem;
+        position: relative;
+
+        &::after {
+            content: "✦";
+            position: absolute;
+            left: 50%;
+            top: -10px;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #ad8d4f;
+        }
+    }
+
+    p {
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-subheading {
+        color: #4d2e12;
+        margin-top: 2.5rem;
+    }
+
+    .about-roles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .about-role-card {
+        background: #f5ecd2;
+        border: 2px solid #c7ab6d;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: left;
+
+        h3 {
+            margin-top: 0;
+            color: #4d2e12;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+}

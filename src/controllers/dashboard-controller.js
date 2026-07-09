@@ -1,4 +1,5 @@
-import { getHeroStats, getPendingSubmissions, getSiteStats } from '../models/dashboard-model.js';
+import { getHeroStats, getSiteStats } from '../models/dashboard-model.js';
+import { getPendingSubmissions } from '../models/submission-model.js';
 
 // Renders one dashboard.ejs, but with different data depending on the
 // logged-in account's role — see dashboard.ejs for the matching

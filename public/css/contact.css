@@ -1,1 +1,52 @@
-/* Contact page styles */
+/* ==========================================================================
+   Contact Page
+   ========================================================================== */
+
+#contact-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    text-align: center;
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #332411;
+        text-shadow: 1px 1px #fff2bf;
+    }
+
+    .divider {
+        width: 300px;
+        height: 2px;
+        background: #ad8d4f;
+        margin: auto;
+        margin-bottom: 2.5rem;
+        position: relative;
+
+        &::after {
+            content: "✦";
+            position: absolute;
+            left: 50%;
+            top: -10px;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #ad8d4f;
+        }
+    }
+
+    p {
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .btn-secondary {
+        background: linear-gradient(#ad8d4f, #8f6b2e);
+        border-color: #6b4f16;
+    }
+}
